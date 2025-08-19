@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <title>Artivism — Home</title>
+</head>
+<body class="m-0 text-black text-[0.85rem] font-[Arial,Helvetica,sans-serif] overflow-x-hidden">
+  <div id="header"></div>
+
+  <main class="mt-14 pb-[calc(3.5rem+env(safe-area-inset-bottom))] px-0 max-w-full">
+    <h1 class="sr-only">Featured Pieces</h1>
+
+    <div class="artivism-box text-white">
+      <h2 class="font-bold text-lg text-white">[ARTIVISM]</h2>
+      <p class="text-white"><u>BID TO OWN THE MOST ICONIC PROTESTS ON ARTWORK</u></p>
+      <p class="leading-tight text-white">Art is a form of human expression. Protest is too.<br>
+      Therefore, isn’t protest against art the highest expression of art itself?</p>
+      <p class="leading-tight text-white">This sequence transforms some of the most iconic protests of our time into unique pieces, allowing any collector to own them not as headlines, but as what they truly are: works of art.</p>
+    </div>
+
+    <!-- 3D-like PNG Carousel -->
+    <section class="carousel relative w-full select-none" aria-roledescription="carousel" aria-label="Featured pieces">
+      <!-- Perspective stage -->
+      <div class="relative w-full h-[62vh] md:h-[70vh] xl:h-[72vh] perspective-[1200px] overflow-visible">
+        <!-- Track: JS sets transform on this wrapper -->
+        <div id="carousel-track" class="relative h-full flex items-center gap-0 will-change-transform">
+          <!-- Slide template: duplicate with different PNGs later -->
+          <figure class="carousel-slide flex-shrink-0" aria-roledescription="slide" aria-label="1 of 10">
+            <img src="assets/img/cuadro-ejemplo.png" data-preview-color="#FF5733" alt="Framed painting in perspective" class="block w-full h-auto max-w-none pointer-events-none select-none" draggable="false" />
+          </figure>
+          <figure class="carousel-slide flex-shrink-0" aria-roledescription="slide" aria-label="2 of 10">
+            <img src="assets/img/cuadro-ejemplo.png" data-preview-color="#33FF57" alt="Framed painting in perspective" class="block w-full h-auto max-w-none pointer-events-none select-none" draggable="false" />
+          </figure>
+          <figure class="carousel-slide flex-shrink-0" aria-roledescription="slide" aria-label="3 of 10">
+            <img src="assets/img/cuadro-ejemplo.png" data-preview-color="#3357FF" alt="Framed painting in perspective" class="block w-full h-auto max-w-none pointer-events-none select-none" draggable="false" />
+          </figure>
+          <figure class="carousel-slide flex-shrink-0" aria-roledescription="slide" aria-label="4 of 10">
+            <img src="assets/img/cuadro-ejemplo.png" data-preview-color="#FF33A1" alt="Framed painting in perspective" class="block w-full h-auto max-w-none pointer-events-none select-none" draggable="false" />
+          </figure>
+          <figure class="carousel-slide flex-shrink-0" aria-roledescription="slide" aria-label="5 of 10">
+            <img src="assets/img/cuadro-ejemplo.png" data-preview-color="#33FFF6" alt="Framed painting in perspective" class="block w-full h-auto max-w-none pointer-events-none select-none" draggable="false" />
+          </figure>
+          <figure class="carousel-slide flex-shrink-0" aria-roledescription="slide" aria-label="6 of 10">
+            <img src="assets/img/cuadro-ejemplo.png" data-preview-color="#FFC733" alt="Framed painting in perspective" class="block w-full h-auto max-w-none pointer-events-none select-none" draggable="false" />
+          </figure>
+          <figure class="carousel-slide flex-shrink-0" aria-roledescription="slide" aria-label="7 of 10">
+            <img src="assets/img/cuadro-ejemplo.png" data-preview-color="#8D33FF" alt="Framed painting in perspective" class="block w-full h-auto max-w-none pointer-events-none select-none" draggable="false" />
+          </figure>
+          <figure class="carousel-slide flex-shrink-0" aria-roledescription="slide" aria-label="8 of 10">
+            <img src="assets/img/cuadro-ejemplo.png" data-preview-color="#FF8333" alt="Framed painting in perspective" class="block w-full h-auto max-w-none pointer-events-none select-none" draggable="false" />
+          </figure>
+          <figure class="carousel-slide flex-shrink-0" aria-roledescription="slide" aria-label="9 of 10">
+            <img src="assets/img/cuadro-ejemplo.png" data-preview-color="#33FF83" alt="Framed painting in perspective" class="block w-full h-auto max-w-none pointer-events-none select-none" draggable="false" />
+          </figure>
+          <figure class="carousel-slide flex-shrink-0" aria-roledescription="slide" aria-label="10 of 10">
+            <img src="assets/img/cuadro-ejemplo.png" data-preview-color="#FF3333" alt="Framed painting in perspective" class="block w-full h-auto max-w-none pointer-events-none select-none" draggable="false" />
+          </figure>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <button id="carousel-prev" class="carousel-control prev" aria-label="Previous slide">❮</button>
+      <button id="carousel-next" class="carousel-control next" aria-label="Next slide">❯</button>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
