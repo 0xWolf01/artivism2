@@ -1,0 +1,394 @@
+/* Import custom font */
+@font-face {
+  font-family: 'CAPITALISM_SPEND';
+  src: url('../public/fonts/CAPITALISM_SPEND.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Import Moma Sans fonts */
+@font-face {
+  font-family: 'Moma Sans';
+  src: url('../public/fonts/moma-sans-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Moma Sans';
+  src: url('../public/fonts/moma-sans-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Moma Sans';
+  src: url('../public/fonts/moma-sans-regular--italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Moma Sans';
+  src: url('../public/fonts/moma-sans-bold--italic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* CRT scanline transition animation */
+@keyframes crt-scan-transition {
+  0% {
+    clip-path: inset(100% 0 0 0);
+    filter: brightness(0.3) contrast(0.5);
+  }
+  10% {
+    clip-path: inset(90% 0 0 0);
+    filter: brightness(0.4) contrast(0.6);
+  }
+  20% {
+    clip-path: inset(80% 0 0 0);
+    filter: brightness(0.5) contrast(0.7);
+  }
+  30% {
+    clip-path: inset(70% 0 0 0);
+    filter: brightness(0.6) contrast(0.8);
+  }
+  40% {
+    clip-path: inset(60% 0 0 0);
+    filter: brightness(0.7) contrast(0.9);
+  }
+  50% {
+    clip-path: inset(50% 0 0 0);
+    filter: brightness(0.8) contrast(1.0);
+  }
+  60% {
+    clip-path: inset(40% 0 0 0);
+    filter: brightness(0.9) contrast(1.1);
+  }
+  70% {
+    clip-path: inset(30% 0 0 0);
+    filter: brightness(1.0) contrast(1.2);
+  }
+  80% {
+    clip-path: inset(20% 0 0 0);
+    filter: brightness(1.1) contrast(1.3);
+  }
+  90% {
+    clip-path: inset(10% 0 0 0);
+    filter: brightness(0.98) contrast(1.4);
+  }
+  100% {
+    clip-path: inset(0% 0 0 0);
+    filter: brightness(1) contrast(1);
+  }
+}
+
+.glitch-transition {
+  animation: crt-scan-transition 1.2s ease-out;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 0, 2, 0.1) 50%,
+    transparent 100%
+  );
+}
+
+/* Store page flickering effect */
+@keyframes store-flicker {
+  0%, 100% {
+    filter: brightness(1) contrast(1);
+  }
+  2% {
+    filter: brightness(0.98) contrast(0.98);
+  }
+  4% {
+    filter: brightness(1.02) contrast(1.02);
+  }
+  6% {
+    filter: brightness(0.99) contrast(0.99);
+  }
+  8% {
+    filter: brightness(1.01) contrast(1.01);
+  }
+  10% {
+    filter: brightness(1) contrast(1);
+  }
+  50% {
+    filter: brightness(0.97) contrast(0.97);
+  }
+  90% {
+    filter: brightness(1.03) contrast(1.03);
+  }
+}
+
+.store-page-flicker {
+  animation: store-flicker 3s ease-in-out infinite;
+}
+
+/* ✅ Optimizado: Eliminado CSS no utilizado del preloader */
+
+/* ✅ Convertido a Tailwind: m-0 font-sans antialiased overflow-x-hidden */
+body {
+  /* Estilos básicos mantenidos para compatibilidad */
+}
+
+/* Block vertical scroll when on store page */
+body.store-page-active {
+  overflow-y: hidden !important;
+}
+
+/* Store page scanlines - more visible */
+body.store-page-active::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 0, 2, 0.15) 2px,
+    rgba(255, 0, 2, 0.15) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* ✅ Convertido a Tailwind: relative w-full select-none, flex items-center justify-center transition-all duration-300 ease-in-out */
+/* Gallery styles - Eliminados, ahora usando Tailwind */
+
+/* ✅ Convertido a Tailwind: absolute top-1/2 -translate-y-1/2 bg-white/70 border-none rounded-full w-10 h-10 text-base cursor-pointer z-20 transition-all duration-300 ease-in-out */
+/* Carousel controls - Eliminados, ahora usando Tailwind */
+
+/* Gallery container */
+.perspective-\[1200px\] {
+  perspective: none;
+  transform-style: flat;
+}
+
+/* ✅ Convertido a Tailwind: scrollbar-hide (requiere plugin) */
+/* Hide scrollbar - Eliminado, ahora usando Tailwind */
+
+/* ✅ Convertido a Tailwind: max-w-full max-h-full object-contain */
+/* Slide transitions - Eliminados, ahora usando Tailwind */
+
+/* Hide scrollbar for gallery container */
+.overflow-x-auto::-webkit-scrollbar {
+  display: none;
+}
+
+.overflow-x-auto {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar for products slider */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smooth scrolling for infinite carousel */
+.carousel .perspective-\[1200px\] {
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel-slide {
+  scroll-snap-align: start;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .carousel-control {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+  
+  .carousel-control.prev {
+    left: 10px;
+  }
+  
+  .carousel-control.next {
+    right: 10px;
+  }
+}
+
+/* Artivism box styles */
+.artivism-box {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+  margin: 2rem 0;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+/* Cursor preview styles */
+#cursor-preview {
+  position: fixed;
+  z-index: 2000;
+  width: 260px;
+  aspect-ratio: 16 / 9;
+  background: transparent;
+  overflow: hidden;
+  pointer-events: none;
+  display: none;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+#cursor-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Custom pulse animation with 80% minimum opacity */
+@keyframes custom-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.custom-pulse {
+  animation: custom-pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Apply Jersey 10 to store page */
+.store-page {
+  font-family: 'Jersey 10', sans-serif !important;
+}
+
+/* Apply Moma Sans to store page */
+.store-page-moma {
+  font-family: 'Moma Sans', sans-serif !important;
+}
+
+/* Block vertical scroll on store page */
+.store-page {
+  overflow-y: hidden !important;
+}
+
+/* Ensure header stays in correct position on store page */
+.store-page header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 1000 !important;
+}
+
+/* Perfect centering for store page content */
+.store-page {
+  overflow-y: hidden !important;
+}
+
+/* Center the product selector vertically */
+.store-page .flex-1 {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 1 !important;
+}
+/* Scanlines for body when on store page */
+body.store-page-active::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    rgba(239, 68, 68, 0.12) 1px,
+    rgba(239, 68, 68, 0.12) 2px
+  );
+  pointer-events: none;
+  z-index: 999999;
+}
+
+/* Flicker animation for Choose Your Weapon title */
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  10% { opacity: 0.9; }
+  20% { opacity: 1; }
+  30% { opacity: 0.8; }
+  40% { opacity: 1; }
+  50% { opacity: 0.9; }
+  60% { opacity: 1; }
+  70% { opacity: 0.8; }
+  80% { opacity: 1; }
+  90% { opacity: 0.9; }
+}
+
+.animate-flicker { 
+  animation: flicker 3s infinite; 
+}
+
+/* Blinking underscore animation */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s infinite;
+}
+
+/* Red glow effect for Choose Your Weapon title */
+.glow-red {
+  text-shadow: 
+    0 0 3px #ef4444;
+}
+
+/* Outline text effect for Choose Your Weapon title */
+.outline-text {
+  color: transparent;
+  text-shadow: 
+    -1px -1px 0 #ef4444,
+    1px -1px 0 #ef4444,
+    -1px 1px 0 #ef4444,
+    1px 1px 0 #ef4444,
+    -2px -2px 0 #ef4444,
+    2px -2px 0 #ef4444,
+    -2px 2px 0 #ef4444,
+    2px 2px 0 #ef4444;
+}
+
