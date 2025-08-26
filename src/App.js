@@ -4,7 +4,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Gallery from './pages/Gallery';
-import Store from './pages/Store';
+import Weapons from './pages/Weapons';
+import Exhibition from './pages/Exhibition';
 import Gioconda from './pages/Gioconda';
 import Monalisa from './pages/Monalisa';
 import Lesmeules from './pages/Lesmeules';
@@ -25,7 +26,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/gallery" element={<Gallery />} />
-            <Route path="/store" element={<Store />} />
+            <Route path="/store" element={<Weapons />} />
+            <Route path="/exhibition" element={<Exhibition />} />
             <Route path="/gioconda" element={<Gioconda />} />
             <Route path="/monalisa" element={<Monalisa />} />
             <Route path="/lesmeules" element={<Lesmeules />} />

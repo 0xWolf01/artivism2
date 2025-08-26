@@ -8,7 +8,7 @@ const Gallery = () => {
       title: "Pumpkin soup on Leonardo da Vinci's La Gioconda",
       artist: "Capitalism",
       year: "2025",
-      image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Mona_Lisa.jpg",
+      image: "/assets/img/gioconda-capitalism.jpg",
       link: "/gioconda"
     },
     {
@@ -24,7 +24,7 @@ const Gallery = () => {
       title: "Fossil fuels on Klimt's Death and Life",
       artist: "Capitalism",
       year: "2022",
-      image: "https://arthive.com/res/media/img/oy800/work/2ba/536354@2x.jpg",
+      image: "/assets/img/deathandlife-capitalism.jpg",
       link: "/deathandlife"
     },
     {
@@ -40,7 +40,7 @@ const Gallery = () => {
       title: "Tomato soup on Van Gogh's Sunflowers",
       artist: "Capitalism",
       year: "2022",
-      image: "https://upload.wikimedia.org/wikipedia/commons/4/46/Vincent_Willem_van_Gogh_127.jpg",
+      image: "/assets/img/sunflowers-capitalism.jpg",
       link: "/sunflowers"
     },
     {

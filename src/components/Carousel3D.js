@@ -65,8 +65,6 @@ const Carousel3D = () => {
     const AUTO_VX = 0.5; // Velocidad reducida para desktop
     
     // Estados del sistema
-    let isScrolling = false;
-    let isWheeling = false;
     let autoPaused = false;
     let mobileTouched = false; // Flag para saber si se ha tocado en mobile
 
@@ -108,10 +106,10 @@ const Carousel3D = () => {
     const onWheel = (e) => {
       e.preventDefault();
       e.stopPropagation();
-      isWheeling = true;
+      // Wheel scroll control
       
       setTimeout(() => {
-        isWheeling = false;
+        // Wheel scroll control
       }, 40);
       
       if (wheelLock) return;
@@ -134,7 +132,7 @@ const Carousel3D = () => {
     let touchStartY = 0;
     let touchEndX = 0;
     let touchEndY = 0;
-    let isDragging = false; // Flag para saber si se está arrastrando
+    // Touch/swipe control
     
     const onTouchStart = (e) => {
       // Solo en mobile (pantallas pequeñas)
@@ -143,7 +141,7 @@ const Carousel3D = () => {
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
         mobileTouched = true; // Marcar que se ha tocado en mobile
-        isDragging = true;
+        // Touch started
         autoPaused = true; // Pausar auto-scroll inmediatamente
       }
     };
@@ -238,13 +236,12 @@ const Carousel3D = () => {
       }
       document.removeEventListener('keydown', onKeyDown);
     };
-  }, []);
+  }, [baseSlides.length, windowWidth]);
 
   // Función para posicionar el preview en hover
   const positionPreview = (e, slide) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
     
     // Solo mostrar preview en el 60% central de la imagen
     const shouldShow = x > rect.width * 0.2 && x < rect.width * 0.8;
@@ -298,7 +295,7 @@ const Carousel3D = () => {
         <div 
           ref={carouselRef}
           className="relative h-full flex items-center gap-2 px-6"
-          style={{ 
+                    style={{
             width: `${slides.length * 350}px`,
             transform: 'translate3d(0, 0, 0)',
             // Optimizaciones específicas para Chrome
@@ -341,7 +338,7 @@ const Carousel3D = () => {
               <img
                 src={slide.src}
                 alt={slide.title}
-                className="block w-full h-auto max-w-full max-h-full object-contain select-none"
+                className="block w-full h-auto max-w-[90%] max-h-[90%] object-contain select-none"
                 draggable={false}
                 loading="lazy"
                 decoding="async"

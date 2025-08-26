@@ -5,14 +5,34 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
+    
+    <!-- Performance optimizations -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
+    <!-- Resource hints for performance -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//upload.wikimedia.org">
+    <link rel="dns-prefetch" href="//www.meisterdrucke.us">
+    <link rel="dns-prefetch" href="//subastareal.es">
+    
     <meta
       name="description"
       content="Artivism - BID TO OWN THE MOST ICONIC PROTESTS ON ARTWORK"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Moma&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="%PUBLIC_URL%/fonts/moma-sans-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="%PUBLIC_URL%/fonts/moma-sans-bold.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- Preload critical images -->
+    <link rel="preload" href="%PUBLIC_URL%/assets/img/corner-gallery.jpg" as="image">
+    <link rel="preload" href="%PUBLIC_URL%/assets/img/deathandlife-capitalism.jpg" as="image">
+    <link rel="preload" href="%PUBLIC_URL%/assets/img/sunflowers-capitalism.jpg" as="image">
+    
+    <!-- Tailwind CSS está configurado localmente en tailwind.config.js -->
     <title>Artivism — Home</title>
   </head>
   <body>

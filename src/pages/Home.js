@@ -6,6 +6,7 @@ const Home = () => {
   const [isContentVisible, setIsContentVisible] = useState(false);
   const [isMobileContentVisible, setIsMobileContentVisible] = useState(false);
   const contentRef = useRef(null);
+  const observerRef = useRef(null);
 
   useEffect(() => {
     // Forzar scroll hacia arriba
@@ -14,12 +15,12 @@ const Home = () => {
     // NO bloquear scroll vertical - permitir scroll normal en la página
     
     // Lazy loading con Intersection Observer
-    const observer = new IntersectionObserver(
+    observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsContentVisible(true);
-            observer.unobserve(entry.target);
+            observerRef.current?.unobserve(entry.target);
           }
         });
       },
@@ -30,7 +31,7 @@ const Home = () => {
     );
 
     if (contentRef.current) {
-      observer.observe(contentRef.current);
+      observerRef.current.observe(contentRef.current);
     }
 
     // Fallback: si después de 2 segundos no se ha activado, mostrar el contenido
@@ -51,13 +52,16 @@ const Home = () => {
 
     // Limpiar al desmontar el componente
     return () => {
-      if (contentRef.current) {
-        observer.unobserve(contentRef.current);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      const currentRef = contentRef.current;
+      const currentObserver = observerRef.current;
+      if (currentRef && currentObserver) {
+        currentObserver.unobserve(currentRef);
       }
       clearTimeout(fallbackTimer);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [isContentVisible]);
 
 
 

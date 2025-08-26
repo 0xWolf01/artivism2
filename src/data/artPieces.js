@@ -4,7 +4,7 @@ export const artPieces = {
     location: "Louvre Museum, Paris – January 28, 2024",
     concept: "Capitalism",
     description: "Pumpkin soup on oil on poplar panel, hurled with a decisive gesture against Leonardo da Vinci's Mona Lisa. The liquid strikes and slides toward the lower frame, tracing an orange veil. A performance executed by two members of Riposte Alimentaire and witnessed by dozens. The act reframes the painting as a silent witness to an agricultural system in crisis.",
-    mainImage: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Mona_Lisa.jpg",
+    mainImage: "/assets/img/gioconda-capitalism.jpg",
     previewImage: "https://tienda.upper.es/documents/10180/561690/71601_G.jpg",
     previewText: "Weapon: Tomato Soup"
   },
@@ -22,7 +22,7 @@ export const artPieces = {
     location: "Leopold Museum, Vienna – November 15, 2022",
     concept: "Capitalism",
     description: "Fossil fuels on oil on canvas, symbolically applied to Gustav Klimt's Death and Life. The dark substance represents the environmental cost of our energy consumption, creating a powerful metaphor for the death of our planet through human activity.",
-    mainImage: "https://arthive.com/res/media/img/oy800/work/2ba/536354@2x.jpg",
+    mainImage: "/assets/img/deathandlife-capitalism.jpg",
     previewImage: "https://tienda.upper.es/documents/10180/561690/71601_G.jpg",
     previewText: "Weapon: Fossil Fuels"
   },
@@ -40,7 +40,7 @@ export const artPieces = {
     location: "National Gallery, London – July 12, 2022",
     concept: "Capitalism",
     description: "Tomato soup on oil on canvas, applied to Van Gogh's iconic Sunflowers. The red liquid creates a striking contrast against the yellow flowers, symbolizing the blood of exploited workers in the agricultural industry.",
-    mainImage: "https://upload.wikimedia.org/wikipedia/commons/4/46/Vincent_Willem_van_Gogh_127.jpg",
+    mainImage: "/assets/img/sunflowers-capitalism.jpg",
     previewImage: "https://tienda.upper.es/documents/10180/561690/71601_G.jpg",
     previewText: "Weapon: Tomato Soup"
   },

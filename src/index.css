@@ -1,16 +1,11 @@
-/* Import custom font */
-@font-face {
-  font-family: 'CAPITALISM_SPEND';
-  src: url('../public/fonts/CAPITALISM_SPEND.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+/* Tailwind CSS directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* Global font family */
-html {
-  font-family: 'Moma Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-}
+
+
+
 
 /* Animaciones personalizadas para el preview */
 @keyframes fade-in-0 {

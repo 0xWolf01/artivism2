@@ -28,7 +28,11 @@ const Header = () => {
           to="/" 
           className={`font-bold text-lg ${isStorePage ? 'text-black' : 'text-black'}`}
         >
-          {isStorePage ? '[ARTIVISM]' : '[ARTIVISM]'}
+          <img 
+            src="/assets/img/logo_capitalism.svg" 
+            alt="Capitalism Logo" 
+            className="h-4 w-auto"
+          />
         </Link>
         
         {/* Botón hamburguesa para móvil */}
@@ -68,13 +72,6 @@ const Header = () => {
           >
             {isStorePage ? 'Pieces' : 'Pieces'}
           </Link>
-          <button 
-            className={`font-bold no-underline hover:underline text-[0.95rem] bg-transparent border-none cursor-pointer ${
-              isStorePage ? 'text-black hover:text-gray-600' : 'text-black hover:text-gray-600'
-            }`}
-          >
-            {isStorePage ? 'Exhibition' : 'Exhibition'}
-          </button>
           <Link 
             to="/store" 
             className={`font-bold no-underline hover:underline text-[0.95rem] ${
@@ -86,6 +83,18 @@ const Header = () => {
             }}
           >
             {isStorePage ? 'Weapons' : 'Weapons'}
+          </Link>
+          <Link 
+            to="/exhibition" 
+            className={`font-bold no-underline hover:underline text-[0.95rem] ${
+              isStorePage ? 'text-black hover:text-gray-600' : 'text-black hover:text-gray-600'
+            }`}
+            style={{ 
+              textDecoration: isActive('/exhibition') ? 'underline' : 'none',
+              textUnderlineOffset: '4px'
+            }}
+          >
+            {isStorePage ? 'Exhibition' : 'Exhibition'}
           </Link>
         </nav>
       </header>
@@ -100,7 +109,11 @@ const Header = () => {
               className="font-bold text-2xl text-black" 
               onClick={closeMobileMenu}
             >
-              [ARTIVISM]
+              <img 
+                src="/assets/img/logo_capitalism.svg" 
+                alt="Capitalism Logo" 
+                className="h-5 w-auto"
+              />
             </Link>
             <button 
               onClick={closeMobileMenu}
@@ -139,13 +152,6 @@ const Header = () => {
             >
               {isStorePage ? 'Pieces' : 'Pieces'}
             </Link>
-            <button 
-              className={`text-3xl font-bold no-underline hover:underline bg-transparent border-none cursor-pointer text-left ${
-                isStorePage ? 'text-black hover:text-gray-600' : 'text-black hover:text-gray-600'
-              }`}
-            >
-              {isStorePage ? 'Exhibition' : 'Exhibition'}
-            </button>
             <Link 
               to="/store" 
               className={`text-3xl font-bold no-underline hover:underline ${
@@ -158,6 +164,19 @@ const Header = () => {
               onClick={closeMobileMenu}
             >
               {isStorePage ? 'Weapons' : 'Weapons'}
+            </Link>
+            <Link 
+              to="/exhibition" 
+              className={`text-3xl font-bold no-underline hover:underline ${
+                isStorePage ? 'text-black hover:text-gray-600' : 'text-black hover:text-gray-600'
+              }`}
+              style={{ 
+                textDecoration: isActive('/exhibition') ? 'underline' : 'none',
+                textUnderlineOffset: '4px'
+              }}
+              onClick={closeMobileMenu}
+            >
+              {isStorePage ? 'Exhibition' : 'Exhibition'}
             </Link>
           </div>
         </div>

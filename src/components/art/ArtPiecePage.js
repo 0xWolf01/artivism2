@@ -12,7 +12,6 @@ const ArtPiecePage = ({
   previewText 
 }) => {
   const [previewVisible, setPreviewVisible] = useState(false);
-  const [previewPosition, setPreviewPosition] = useState({ x: 0, y: 0 });
   const imageContainerRef = useRef(null);
 
   // Hooks personalizados
