@@ -338,7 +338,7 @@ const Carousel3D = () => {
               <img
                 src={slide.src}
                 alt={slide.title}
-                className="block w-full h-auto max-w-[90%] max-h-[90%] object-contain select-none"
+                className="block w-full h-auto max-w-[98%] max-h-[98%] object-contain select-none"
                 draggable={false}
                 loading="lazy"
                 decoding="async"
