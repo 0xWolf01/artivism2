@@ -14,7 +14,7 @@ export const artPieces = {
     concept: "Capitalism",
     description: "Mashed potatoes on oil on canvas, thrown with precision against Claude Monet's iconic Les Meules. The starchy substance creates a dramatic contrast against the impressionist masterpiece, symbolizing the clash between industrial agriculture and artistic beauty.",
     mainImage: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Claude_Monet_-_Meules_%28W_1273%29.jpg",
-    previewImage: "https://tienda.upper.es/documents/10180/561690/71601_G.jpg",
+    previewImage: "/assets/img/pure-patata.png",
     previewText: "Weapon: Mashed Potatoes"
   },
   deathandlife: {

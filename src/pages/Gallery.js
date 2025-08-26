@@ -84,7 +84,7 @@ const Gallery = () => {
   }, []);
 
   return (
-    <main className="mt-14 pb-[calc(3.5rem+env(safe-area-inset-bottom))] px-4 md:px-10 xl:px-20 max-w-full">
+    <main className="mt-14 pb-[calc(3.5rem+env(safe-area-inset-bottom))] px-4 md:px-10 xl:px-20 max-w-full pt-8 md:pt-12 xl:pt-16">
       <h1 className="sr-only">Pieces</h1>
 
       {/* Gallery grid */}

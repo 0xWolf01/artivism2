@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 const Footer = () => {
   const location = useLocation();
   const isStorePage = location.pathname === '/store';
+  const isHomePage = location.pathname === '/';
 
   return (
     <footer className={`${isStorePage ? 'fixed' : 'md:fixed'} inset-x-0 bottom-0 z-[1000] h-14 text-[0.6rem] md:text-[0.7rem] uppercase tracking-wider font-normal ${
@@ -18,7 +19,7 @@ const Footer = () => {
         }}
       >
         <a 
-          className={`no-underline ${isStorePage ? 'text-gray-500 hover:text-gray-700' : 'text-gray-500 hover:text-gray-700'}`}
+          className={`no-underline ${isStorePage ? 'text-gray-500 hover:text-gray-700' : isHomePage ? 'text-gray-500/20 hover:text-gray-500/40' : 'text-gray-500 hover:text-gray-700'}`}
           href="https://capitalismtheweb.com/privacy-policy"
           target="_blank"
           rel="noopener noreferrer"
@@ -26,7 +27,7 @@ const Footer = () => {
           PRIVACY
         </a>
         <a 
-          className={`no-underline ${isStorePage ? 'text-gray-500 hover:text-gray-700' : 'text-gray-500 hover:text-gray-700'}`}
+          className={`no-underline ${isStorePage ? 'text-gray-500 hover:text-gray-700' : isHomePage ? 'text-gray-500/20 hover:text-gray-500/40' : 'text-gray-500 hover:text-gray-700'}`}
           href="http://capitalismtheweb.com/legal-notice"
           target="_blank"
           rel="noopener noreferrer"
@@ -34,23 +35,16 @@ const Footer = () => {
           LEGAL
         </a>
         <a 
-          className={`no-underline ${isStorePage ? 'text-gray-500 hover:text-gray-700' : 'text-gray-500 hover:text-gray-700'}`}
+          className={`no-underline ${isStorePage ? 'text-gray-500 hover:text-gray-700' : isHomePage ? 'text-gray-500/20 hover:text-gray-700' : 'text-gray-500 hover:text-gray-700'}`}
           href="http://capitalismtheweb.com/cookies-policy"
           target="_blank"
           rel="noopener noreferrer"
         >
           COOKIES
         </a>
+
         <a 
-          className={`no-underline ${isStorePage ? 'text-gray-500 hover:text-gray-700' : 'text-gray-500 hover:text-gray-700'}`}
-          href="https://capitalismtheweb.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          CAPITALISM
-        </a>
-        <a 
-          className={`hidden md:block no-underline ${isStorePage ? 'text-gray-500 hover:text-gray-700' : 'text-gray-500 hover:text-gray-700'}`}
+          className={`hidden md:block no-underline ${isStorePage ? 'text-gray-500 hover:text-gray-700' : isHomePage ? 'text-gray-500/20 hover:text-gray-500/40' : 'text-gray-500 hover:text-gray-700'}`}
           href="https://capitalismtheweb.com"
           target="_blank"
           rel="noopener noreferrer"

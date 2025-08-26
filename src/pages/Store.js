@@ -9,8 +9,7 @@ const Store = () => {
     { id: 1, src: '/assets/img/pure-patata.png', title: 'Fossil Fuel is Killing Us – Mashed Potatoes', artist: 'Food Art', year: '€19.99', color: '#FF0000' },
     { id: 2, src: '/assets/img/marker.png', title: 'Stop Oil Blue Marker', artist: 'Office Art', year: '€24.99', color: '#00FF00' },
     { id: 3, src: '/assets/img/pea-soup.png', title: 'Agricultural System is Collapsed – Pea Soup', artist: 'Food Art', year: '€29.99', color: '#0000FF' },
-    { id: 4, src: '/assets/img/marker.png', title: 'Stop Oil Blue Marker', artist: 'Office Art', year: '€22.99', color: '#FFFF00' },
-    { id: 5, src: '/assets/img/pea-soup.png', title: 'Stop Oil Blue Marker', artist: 'Street Art', year: '€34.99', color: '#FF00FF' }
+    { id: 4, src: '/assets/img/marker.png', title: 'Stop Oil Blue Marker', artist: 'Office Art', year: '€22.99', color: '#FFFF00' }
   ];
 
   // Generar múltiples copias para scroll infinito
@@ -190,25 +189,29 @@ const Store = () => {
   }, [baseSlides.length]);
 
   return (
-    <main className="mt-14 pb-[calc(3.5rem+env(safe-area-inset-bottom))] bg-white flex flex-col items-center pt-8">
+    <main className="mt-14 pb-[calc(3.5rem+env(safe-area-inset-bottom))] bg-white flex flex-col items-center justify-center min-h-[calc(100vh-3.5rem)] w-full" style={{ paddingRight: '0', marginRight: '0' }}>
       <h1 className="sr-only">Weapons Store</h1>
 
       {/* Choose Your Weapon Header */}
-      <div className="w-full text-center mb-6">
+      <div className="w-full text-center mb-6 px-4 md:px-10 xl:px-20">
         <h2 className="text-xl md:text-2xl font-bold text-black" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
           Choose your weapon
         </h2>
       </div>
 
       {/* 3D Carousel Section */}
-      <section className="w-full max-w-none">
-        <div className="relative w-full h-[60vh] md:h-[65vh] xl:h-[70vh] overflow-hidden">
+      <section className="w-screen relative left-1/2 -translate-x-1/2" style={{ margin: '0', padding: '0', width: '100vw', right: '0' }}>
+        <div className="relative w-full h-[60vh] md:h-[65vh] xl:h-[70vh] overflow-hidden" style={{ margin: '0', padding: '0', right: '0' }}>
           <div 
             ref={carouselRef}
             className="relative h-full flex items-center gap-2"
             style={{
               width: `${slides.length * 350}px`,
-              minWidth: '100vw'
+              minWidth: '100vw',
+              margin: '0',
+              padding: '0',
+              left: '0',
+              right: '0'
             }}
           >
             {slides.map((slide, index) => (
@@ -221,37 +224,70 @@ const Store = () => {
                 }}
                 onClick={() => window.location.href = '/gioconda'}
               >
-                <div className="bg-[#f2f2f2] p-4 w-full h-full flex flex-col items-center justify-center">
-                  <img
-                    src={slide.src}
-                    alt={slide.title}
-                    className="block w-full h-auto max-w-full max-h-[60%] object-contain select-none mb-4"
-                    draggable={false}
-                  />
-                  <div className="text-center w-full">
-                    <h3 className="text-[0.9rem] font-bold text-gray-800 mb-2 transition-all duration-300" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
-                      {slide.title.includes('–') ? (
-                        <>
-                          <span className="text-[0.9rem] font-bold">{slide.title.split('–')[0].trim()}</span>
-                          <br />
-                          <span className="text-[0.7rem] font-normal">{slide.title.split('–')[1].trim()}</span>
-                        </>
-                      ) : slide.title === 'Stop Oil Blue Marker' ? (
-                        <>
-                          <span className="text-[0.9rem] font-bold">Stop Oil</span>
-                          <br />
-                          <span className="text-[0.7rem] font-normal">Blue Marker</span>
-                        </>
+                <div className="bg-[#f2f2f2] p-4 w-full h-full flex flex-col items-center justify-between">
+                  {/* Imagen - altura fija */}
+                  <div className="flex-shrink-0 w-full h-[60%] flex items-center justify-center">
+                    <img
+                      src={slide.src}
+                      alt={slide.title}
+                      className="block w-full h-full max-w-full max-h-full object-contain select-none"
+                      draggable={false}
+                    />
+                  </div>
+                  
+                  {/* Contenido de texto - altura fija */}
+                  <div className="flex-shrink-0 w-full h-[40%] flex flex-col justify-between">
+                    {/* Título */}
+                    <div className="text-center mb-2">
+                      <h3 className="text-[0.9rem] font-bold text-gray-800 transition-all duration-300" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
+                        {slide.title.includes('–') ? (
+                          <>
+                            <span className="text-[0.9rem] font-bold">{slide.title.split('–')[0].trim()}</span>
+                            <br />
+                            <span className="text-[0.7rem] font-normal">{slide.title.split('–')[1].trim()}</span>
+                          </>
+                        ) : slide.title === 'Stop Oil Blue Marker' ? (
+                          <>
+                            <span className="text-[0.9rem] font-bold">Stop Oil</span>
+                            <br />
+                            <span className="text-[0.7rem] font-normal">Blue Marker</span>
+                          </>
+                        ) : (
+                          slide.title
+                        )}
+                      </h3>
+                    </div>
+                    
+                    {/* Descripción para todos los productos - altura fija */}
+                    <div className="text-center mb-2 min-h-[2.5rem] flex items-center justify-center">
+                      {slide.title.includes('Pea Soup') ? (
+                        <p className="text-[0.6rem] text-gray-500 leading-tight px-2 opacity-80 max-w-[250px] mx-auto" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
+                          A light-green vegetable solution with broad coverage and lasting effect. Can be combined with other products for greater impact.
+                        </p>
+                      ) : slide.title.includes('Mashed Potatoes') ? (
+                        <p className="text-[0.6rem] text-gray-500 leading-tight px-2 opacity-80 max-w-[250px] mx-auto" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
+                          Opaque powder of variable density to mix with water and throw at an artwork. Perfect for full-coverage actions.
+                        </p>
+                      ) : slide.title.includes('Blue Marker') ? (
+                        <p className="text-[0.6rem] text-gray-500 leading-tight px-2 opacity-80 max-w-[250px] mx-auto" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
+                          High-quality permanent blue ink for targeting any artwork, regardless of medium. Easy to carry, easy to use.
+                        </p>
                       ) : (
-                        slide.title
+                        <p className="text-[0.6rem] text-gray-500 leading-tight px-2 opacity-80 max-w-[250px] mx-auto" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
+                          A versatile tool designed for maximum impact and visibility. Perfect for any artistic expression or protest action.
+                        </p>
                       )}
-                    </h3>
-                    <p className="text-[0.75rem] text-gray-600 mb-3 transition-all duration-300" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
-                      {slide.year}
-                    </p>
-                    <button className="inline-block bg-black text-white px-4 py-2 font-semibold transition-all duration-300 text-[0.75rem] hover:bg-gray-800" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
-                      BUY
-                    </button>
+                    </div>
+                    
+                    {/* Precio y botón - altura fija */}
+                    <div className="text-center">
+                      <p className="text-[0.75rem] text-gray-600 mb-3 transition-all duration-300" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
+                        {slide.year}
+                      </p>
+                      <button className="inline-block bg-black text-white px-4 py-2 font-semibold transition-all duration-300 text-[0.75rem] hover:bg-gray-800" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
+                        BUY
+                      </button>
+                    </div>
                   </div>
                 </div>
               </figure>

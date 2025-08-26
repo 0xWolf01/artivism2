@@ -24,7 +24,10 @@ const Header = () => {
       <header className={`fixed inset-x-0 top-0 z-[1000] h-14 flex items-center justify-between px-4 md:px-10 xl:px-20 ${
         isStorePage ? 'bg-white text-black' : 'bg-white text-black'
       }`} style={{ fontFamily: 'Moma Sans, sans-serif' }}>
-        <Link to="/" className={`font-bold text-lg ${isStorePage ? 'text-black' : 'text-black'}`}>
+        <Link 
+          to="/" 
+          className={`font-bold text-lg ${isStorePage ? 'text-black' : 'text-black'}`}
+        >
           {isStorePage ? '[ARTIVISM]' : '[ARTIVISM]'}
         </Link>
         
@@ -45,7 +48,11 @@ const Header = () => {
             to="/" 
             className={`font-bold no-underline hover:underline text-[0.95rem] ${
               isStorePage ? 'text-black hover:text-gray-600' : 'text-black hover:text-gray-600'
-            } ${isActive('/') ? 'underline' : ''}`}
+            }`}
+            style={{ 
+              textDecoration: isActive('/') ? 'underline' : 'none',
+              textUnderlineOffset: '4px'
+            }}
           >
             {isStorePage ? 'Artivism' : 'Artivism'}
           </Link>
@@ -53,7 +60,11 @@ const Header = () => {
             to="/gallery" 
             className={`font-bold no-underline hover:underline text-[0.95rem] ${
               isStorePage ? 'text-black hover:text-gray-600' : 'text-black hover:text-gray-600'
-            } ${isActive('/gallery') ? 'underline' : ''}`}
+            }`}
+            style={{ 
+              textDecoration: isActive('/gallery') ? 'underline' : 'none',
+              textUnderlineOffset: '4px'
+            }}
           >
             {isStorePage ? 'Pieces' : 'Pieces'}
           </Link>
@@ -68,7 +79,11 @@ const Header = () => {
             to="/store" 
             className={`font-bold no-underline hover:underline text-[0.95rem] ${
               isStorePage ? 'text-black hover:text-gray-600' : 'text-black hover:text-gray-600'
-            } ${isActive('/store') ? 'underline' : ''}`}
+            }`}
+            style={{ 
+              textDecoration: isActive('/store') ? 'underline' : 'none',
+              textUnderlineOffset: '4px'
+            }}
           >
             {isStorePage ? 'Weapons' : 'Weapons'}
           </Link>
@@ -80,7 +95,11 @@ const Header = () => {
         <div className="fixed inset-0 z-[999] bg-white">
           {/* Header del menú móvil */}
           <div className="flex items-center justify-between p-6">
-            <Link to="/" className="font-bold text-2xl text-black" onClick={closeMobileMenu}>
+            <Link 
+              to="/" 
+              className="font-bold text-2xl text-black" 
+              onClick={closeMobileMenu}
+            >
               [ARTIVISM]
             </Link>
             <button 
@@ -98,7 +117,11 @@ const Header = () => {
               to="/" 
               className={`text-3xl font-bold no-underline hover:underline ${
                 isStorePage ? 'text-black hover:text-gray-600' : 'text-black hover:text-gray-600'
-              } ${isActive('/') ? 'underline' : ''}`}
+              }`}
+              style={{ 
+                textDecoration: isActive('/') ? 'underline' : 'none',
+                textUnderlineOffset: '4px'
+              }}
               onClick={closeMobileMenu}
             >
               {isStorePage ? 'Artivism' : 'Artivism'}
@@ -107,7 +130,11 @@ const Header = () => {
               to="/gallery" 
               className={`text-3xl font-bold no-underline hover:underline ${
                 isStorePage ? 'text-black hover:text-gray-600' : 'text-black hover:text-gray-600'
-              } ${isActive('/gallery') ? 'underline' : ''}`}
+              }`}
+              style={{ 
+                textDecoration: isActive('/gallery') ? 'underline' : 'none',
+                textUnderlineOffset: '4px'
+              }}
               onClick={closeMobileMenu}
             >
               {isStorePage ? 'Pieces' : 'Pieces'}
@@ -123,7 +150,11 @@ const Header = () => {
               to="/store" 
               className={`text-3xl font-bold no-underline hover:underline ${
                 isStorePage ? 'text-black hover:text-gray-600' : 'text-black hover:text-gray-600'
-              } ${isActive('/store') ? 'underline' : ''}`}
+              }`}
+              style={{ 
+                textDecoration: isActive('/store') ? 'underline' : 'none',
+                textUnderlineOffset: '4px'
+              }}
               onClick={closeMobileMenu}
             >
               {isStorePage ? 'Weapons' : 'Weapons'}

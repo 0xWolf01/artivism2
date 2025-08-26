@@ -19,72 +19,67 @@ const ArtPiecePage = ({
   useFadeIn(100, 600);
   useScrollLock(true, 1024);
 
-  const positionPreview = (e) => {
-    if (!imageContainerRef.current) return;
-    const rect = imageContainerRef.current.getBoundingClientRect();
-    const boxW = 260;
-    const boxH = (260 * 9 / 16) + 20;
-    
-    let x = e.clientX - rect.left + 10;
-    let y = e.clientY - rect.top + 10;
-    
-    x = Math.max(4, Math.min(rect.width - boxW - 4, x));
-    y = Math.max(4, Math.min(rect.height - boxH - 4, y));
-    
-    setPreviewPosition({ x, y });
-  };
+
 
   return (
-    <main className="mt-14 pb-[calc(3.5rem+env(safe-area-inset-bottom))] px-4 md:px-10 xl:px-20 max-w-full min-h-[calc(100svh-3.5rem)] pt-4 xl:pt-20">
+    <main className="mt-14 pb-4 md:pb-[calc(3.5rem+env(safe-area-inset-bottom))] px-4 md:px-10 xl:px-20 max-w-full min-h-0 md:min-h-[calc(100vh-3.5rem)] flex flex-col justify-start md:justify-center" style={{paddingBottom: window.innerWidth < 768 ? '1rem' : undefined}}>
       <div className="grid grid-cols-1 xl:grid-cols-[1.2fr_0.8fr] gap-10 xl:gap-16 items-start xl:items-stretch">
         {/* Imagen principal */}
         <div className="bg-[#f2f2f2] w-full h-auto p-4 md:p-6">
           <div 
             ref={imageContainerRef}
             className="relative w-full h-full flex items-center justify-center"
-            onMouseMove={positionPreview}
           >
-            <img
-              className="max-w-full h-auto max-h-[calc(100vh-12rem)] xl:max-h-[calc(100vh-16rem)] object-contain block m-auto"
-              src={mainImage}
-              alt={title}
-            />
-            
-            {/* Hotspot */}
-            <button
-              type="button"
-              aria-label="Hotspot"
-              className="absolute size-3.5 bg-red-500/50 rounded-full border-2 border-white cursor-pointer -translate-x-1/2 -translate-y-1/2"
-              style={{ top: '15%', left: '65%' }}
-              onMouseEnter={() => setPreviewVisible(true)}
-              onMouseLeave={() => setPreviewVisible(false)}
-            />
+            <div className="relative inline-block">
+              <img
+                className="max-w-full h-auto max-h-[calc(100vh-12rem)] xl:max-h-[calc(100vh-16rem)] object-contain block m-auto"
+                src={mainImage}
+                alt={title}
+              />
+              
+              {/* Botón WEAPON - círculo con + */}
+              <button
+                type="button"
+                aria-label="Ver weapon"
+                className="absolute top-3 right-3 text-white w-8 h-8 rounded-full cursor-pointer hover:bg-red-700 transition-all duration-200 hover:scale-105 shadow-lg animate-pulse flex items-center justify-center text-2xl leading-none"
+                style={{fontFamily: 'Moma Sans', backgroundColor: '#FF0002'}}
+                onMouseEnter={() => setPreviewVisible(true)}
+                onMouseLeave={() => setPreviewVisible(false)}
+              >
+                +
+              </button>
+            </div>
             
             {/* Preview */}
             {previewVisible && (
               <div 
-                className="absolute z-[2000] pointer-events-none w-[260px] aspect-video bg-white p-4 text-center overflow-hidden flex flex-col justify-center"
+                className="absolute z-[2000] pointer-events-none w-[200px] h-[200px] bg-white p-4 text-center overflow-hidden flex flex-col justify-center shadow-xl border border-gray-200"
                 style={{ 
-                  left: previewPosition.x + 'px', 
-                  top: previewPosition.y + 'px' 
+                  top: '4rem', 
+                  right: '4rem' 
                 }}
               >
                 <img 
-                  className="w-full h-full object-contain block mx-auto" 
+                  className="w-full h-4/5 object-contain block mx-auto" 
                   src={previewImage} 
                   alt="preview" 
                 />
-                <p className="text-[0.7rem] text-black mt-1 leading-tight break-words whitespace-normal">
-                  {previewText}
-                </p>
+                <div className="text-center mt-2">
+                  <p className="text-[0.7rem] text-black font-bold leading-tight">
+                    Weapon
+                  </p>
+                  <p className="text-[0.7rem] text-black leading-tight">
+                    {previewText.replace('Weapon: ', '')}
+                  </p>
+                </div>
               </div>
             )}
           </div>
         </div>
 
         {/* Información */}
-        <div className="flex flex-col gap-6 mr-auto leading-relaxed xl:h-full xl:justify-between">
-          <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4 md:gap-6 mr-auto leading-relaxed xl:h-full xl:justify-between">
+          <div className="flex flex-col gap-4 md:gap-6">
             <h1 className="font-bold m-0 text-[1.5rem]">{title}</h1>
             <div className="flex flex-col gap-0">
               <h2 className="font-bold m-0 text-[1rem]">{location}</h2>
@@ -98,7 +93,7 @@ const ArtPiecePage = ({
             </p>
           </div>
           
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-4 md:gap-6">
             <div className="flex flex-col gap-0">
               <p className="m-0 text-[0.85rem] font-bold">Medium</p>
               <p className="m-0 text-[0.85rem]">Oil on poplar panel</p>
@@ -108,6 +103,11 @@ const ArtPiecePage = ({
               <p className="m-0 text-[0.85rem]">77 × 53 cm (30 × 21 in)</p>
             </div>
           </div>
+          
+          {/* Botón BID NOW */}
+          <button className="w-full md:w-fit bg-transparent border-2 border-black font-bold px-5 py-2 cursor-pointer text-base rounded-none hover:bg-black hover:text-white transition-colors duration-200">
+            BID NOW
+          </button>
         </div>
       </div>
     </main>
