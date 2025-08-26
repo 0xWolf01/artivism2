@@ -8,9 +8,9 @@ const Carousel3D = () => {
 
   // Datos de las imágenes del carrusel con colores de preview
   const baseSlides = [
-    { id: 1, src: '/assets/img/cuadro-ejemplo.jpg', title: 'Cuadro Ejemplo', color: '#FF0000', preview: 'https://d3i6fh83elv35t.cloudfront.net/static/2022/11/2022-11-15T130307Z_1480766008_RC2CMX9KZZZJ_RTRMADP_3_CLIMATE-PROTESTS-AUSTRIA-KLIMT-1024x768.jpg', location: 'Leopold Museum, Vienna, 2022' },
-    { id: 2, src: '/assets/img/cuadro-ejemplo-2.jpg', title: 'Cuadro Ejemplo 2', color: '#00FF00', preview: 'https://static.dw.com/image/68105658_605.jpg', location: 'Louvre Museum, Paris, 2024' },
-    { id: 3, src: '/assets/img/cuadro-ejemplo-3.jpg', title: 'Cuadro Ejemplo 3', color: '#0000FF', preview: 'https://ak.uecdn.es/p/108/thumbnail/entry_id/0_8h95f14y/width/660/cache_st/1665826845/type/2/bgcolor/000000/0_8h95f14y.jpg', location: 'National Gallery, London, 2022' },
+    { id: 1, src: '/assets/img/cuadro-ejemplo.jpg', title: 'Cuadro Ejemplo', color: '#FF0000', preview: '/assets/img/klimt-protest.jpg', location: 'Leopold Museum, Vienna, 2022' },
+    { id: 2, src: '/assets/img/cuadro-ejemplo-2.jpg', title: 'Cuadro Ejemplo 2', color: '#00FF00', preview: '/assets/img/gioconda-protest.jpg', location: 'Louvre Museum, Paris, 2024' },
+    { id: 3, src: '/assets/img/cuadro-ejemplo-3.jpg', title: 'Cuadro Ejemplo 3', color: '#0000FF', preview: '/assets/img/sunflower-protest.jpg', location: 'National Gallery, London, 2022' },
     { id: 4, src: '/assets/img/cuadro-ejemplo-4.jpg', title: 'Cuadro Ejemplo 4', color: '#FFFF00', preview: '/assets/img/les-meules-protest.jpg', location: 'Musée d\'Orsay, Paris, 2022' }
   ];
 
@@ -338,7 +338,7 @@ const Carousel3D = () => {
               <img
                 src={slide.src}
                 alt={slide.title}
-                className="block w-full h-auto max-w-[98%] max-h-[98%] object-contain select-none"
+                className="block w-full h-auto max-w-[90%] max-h-[90%] object-contain select-none"
                 draggable={false}
                 loading="lazy"
                 decoding="async"

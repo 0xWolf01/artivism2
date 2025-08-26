@@ -70,6 +70,11 @@ const Gallery = () => {
   ];
 
   useEffect(() => {
+    // Forzar scroll hacia arriba
+    window.scrollTo(0, 0);
+    
+    // NO bloquear scroll vertical - permitir scroll normal en la página
+    
     // Entry animation for gallery items
     const animTargets = document.querySelectorAll('article');
     
