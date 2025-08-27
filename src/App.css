@@ -1,0 +1,23 @@
+.App {
+  text-align: left;
+  font-size: 0.85rem;
+  color: black;
+}
+
+/* Main content spacing */
+main {
+  min-height: calc(100vh - 7rem);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  main {
+    padding: 0 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  main {
+    padding: 0 2rem;
+  }
+}
