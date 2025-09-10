@@ -314,7 +314,7 @@ const Weapons = () => {
                             </p>
                           ) : slide.title.includes('FOSSIL FUEL') && !slide.title.includes('KILLING') ? (
                             <p className="text-[0.6rem] text-gray-500 leading-tight px-2 opacity-80 max-w-[250px] mx-auto" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
-                              Dark, viscous liquid that's impossible to ignore. Equal parts ironic and provocative.
+                              Dark, viscous liquid that&apos;s impossible to ignore. Equal parts ironic and provocative.
                             </p>
                           ) : slide.title.includes('PUMPKIN SOUP') ? (
                             <p className="text-[0.6rem] text-gray-500 leading-tight px-2 opacity-80 max-w-[250px] mx-auto" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
@@ -417,7 +417,7 @@ const Weapons = () => {
                     </p>
                   ) : slide.title.includes('FOSSIL FUEL') && !slide.title.includes('KILLING') ? (
                     <p className="text-xs text-gray-500 leading-relaxed" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
-                      Dark, viscous liquid that's impossible to ignore. Equal parts ironic and provocative.
+                      Dark, viscous liquid that&apos;s impossible to ignore. Equal parts ironic and provocative.
                     </p>
                   ) : slide.title.includes('PUMPKIN SOUP') ? (
                     <p className="text-xs text-gray-500 leading-relaxed" style={{ fontFamily: 'Moma Sans, sans-serif' }}>

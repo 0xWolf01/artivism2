@@ -132,7 +132,7 @@ const Home = () => {
               }`}>
                 <p className="text-sm sm:text-base md:text-xs lg:text-[12.5px] xl:text-xs 2xl:text-[12.5px] text-black leading-relaxed sm:leading-tight md:leading-tight lg:leading-[1.2] w-full md:w-80 lg:w-full mx-auto md:mx-auto" style={{fontFamily: 'Moma Sans'}}>
                   Art is a form of human expression. Protest is too.<br />
-                  So isn't protest on art the highest expression of art itself?
+                  So isn&apos;t protest on art the highest expression of art itself?
                 </p>
               </div>
               
