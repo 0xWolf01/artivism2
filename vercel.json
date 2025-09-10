@@ -7,7 +7,7 @@
   ],
   "headers": [
     {
-      "source": "/static/js/(.*)",
+      "source": "/app/static/js/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -16,7 +16,7 @@
       ]
     },
     {
-      "source": "/static/css/(.*)",
+      "source": "/app/static/css/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -25,7 +25,7 @@
       ]
     },
     {
-      "source": "/fonts/(.*)",
+      "source": "/app/fonts/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -34,7 +34,7 @@
       ]
     },
     {
-      "source": "/assets/img/(.*)",
+      "source": "/app/assets/img/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
