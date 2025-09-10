@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react';
-import ArtPiecePage from '../../src/components/art/ArtPiecePage';
-import { artPieces } from '../../src/data/artPieces';
+import ArtPiecePage from "../../components/art/ArtPiecePage";
+import { artPieces } from "../../data/artPieces";
 
 const Thesower = () => {
   const piece = artPieces.thesower;

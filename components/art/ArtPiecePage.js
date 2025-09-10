@@ -12,7 +12,49 @@ const ArtPiecePage = ({
   previewText 
 }) => {
   const [previewVisible, setPreviewVisible] = useState(false);
+  const [weaponHovered, setWeaponHovered] = useState(null);
+  const hoverTimeoutRef = useRef(null);
   const imageContainerRef = useRef(null);
+  
+  // Parse weapons from previewText
+  const parseWeapons = (text) => {
+    const weaponsText = text.replace('Weapon: ', '');
+    const weapons = weaponsText.split(', ').map(weapon => weapon.trim());
+    
+    // Map weapons to their respective images
+    const weaponImageMap = {
+      'TOMATO SOUP': '/assets/img/tomate-soup.webp',
+      'PUMPKIN SOUP': '/assets/img/pumkin-soup.webp', 
+      'MASHED POTATOES': '/assets/img/mashed-potatoes.webp',
+      'FOSSIL FUEL': '/assets/img/petroleum.webp',
+      'PEA SOUP': '/assets/img/pea-soup.webp',
+      'RED PAINT': '/assets/img/marker.webp',
+      'BLUE MARKER': '/assets/img/marker.webp',
+      'INSTANT ADHESIVE': '/assets/img/adhesive.webp'
+    };
+    
+    return weapons.map(weapon => ({
+      name: weapon,
+      image: weaponImageMap[weapon] || previewImage
+    }));
+  };
+  
+  const weapons = parseWeapons(previewText);
+
+  // Funciones para manejar hover con delay
+  const handleMouseEnter = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    setPreviewVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    hoverTimeoutRef.current = setTimeout(() => {
+      setPreviewVisible(false);
+      setWeaponHovered(null);
+    }, 150); // 150ms delay antes de ocultar
+  };
 
   // Hooks personalizados
   useFadeIn(100, 600);
@@ -42,8 +84,8 @@ const ArtPiecePage = ({
                 aria-label="Ver weapon"
                 className="absolute top-3 right-3 text-white w-8 h-8 rounded-full cursor-pointer hover:bg-red-700 transition-all duration-200 hover:scale-105 shadow-lg animate-pulse flex items-center justify-center text-2xl leading-none"
                 style={{fontFamily: 'Moma Sans', backgroundColor: '#FF0002'}}
-                onMouseEnter={() => setPreviewVisible(true)}
-                onMouseLeave={() => setPreviewVisible(false)}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
               >
                 +
               </button>
@@ -52,25 +94,61 @@ const ArtPiecePage = ({
             {/* Preview */}
             {previewVisible && (
               <div 
-                className="absolute z-[2000] pointer-events-none w-[200px] h-[200px] bg-white p-4 text-center overflow-hidden flex flex-col justify-center shadow-xl border border-gray-200"
+                className="absolute z-[2000] pointer-events-auto bg-white shadow-xl border border-gray-200"
                 style={{ 
                   top: '4rem', 
-                  right: '4rem' 
+                  right: '4rem',
+                  width: '220px',
+                  minHeight: '180px',
+                  maxHeight: '500px'
                 }}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
               >
-                <img 
-                  className="w-full h-4/5 object-contain block mx-auto" 
-                  src={previewImage} 
-                  alt="preview" 
-                />
-                <div className="text-center mt-2">
-                  <p className="text-[0.7rem] text-black font-bold leading-tight">
-                    Weapon
-                  </p>
-                  <p className="text-[0.7rem] text-black leading-tight">
-                    {previewText.replace('Weapon: ', '')}
-                  </p>
-                </div>
+                {weapons.map((weapon, index) => (
+                  <div 
+                    key={index}
+                    className="relative w-full p-4 text-center flex flex-col border-b border-gray-100 last:border-b-0"
+                    style={{
+                      minHeight: '180px',
+                      height: 'auto'
+                    }}
+                    onMouseEnter={() => setWeaponHovered(index)}
+                    onMouseLeave={() => setWeaponHovered(null)}
+                  >
+                    {/* Imagen del arma */}
+                    <div className="flex items-center justify-center mb-3" style={{height: '100px'}}>
+                      <img 
+                        className="max-w-full max-h-full object-contain" 
+                        src={weapon.image} 
+                        alt={weapon.name} 
+                      />
+                    </div>
+                    
+                    {/* Información del arma */}
+                    <div className="text-center mb-3">
+                      <p className="text-[0.7rem] text-black font-bold leading-tight mb-1">
+                        Weapon
+                      </p>
+                      <p className="text-[0.7rem] text-black leading-tight">
+                        {weapon.name}
+                      </p>
+                    </div>
+                    
+                    {/* BUY button appears on hover - positioned at bottom */}
+                    <div className="flex items-center justify-center" style={{minHeight: '32px'}}>
+                      {weaponHovered === index && (
+                        <button 
+                          onClick={() => window.open('https://shop.capitalismtheweb.com/', '_blank')}
+                          className="bg-transparent border-2 border-black text-black px-3 py-1 font-semibold transition-all duration-300 text-[0.7rem] hover:bg-black hover:text-white cursor-pointer" 
+                          style={{ fontFamily: 'Moma Sans, sans-serif' }}
+                        >
+                          BUY
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
           </div>

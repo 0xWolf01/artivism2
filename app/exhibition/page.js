@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react';
-import { useFadeIn } from '../../src/hooks/useFadeIn';
-import { useScrollLock } from '../../src/hooks/useScrollLock';
+import { useFadeIn } from "../../hooks/useFadeIn";
+import { useScrollLock } from "../../hooks/useScrollLock";
 
 const Exhibition = () => {
   // Hooks personalizados
