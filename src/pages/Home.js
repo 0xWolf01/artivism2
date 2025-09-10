@@ -152,7 +152,7 @@ const Home = () => {
                   ? (isMobileContentVisible ? 'opacity-100' : 'opacity-10') 
                   : 'opacity-100'
               }`}>
-                <Link to="/gallery" className="bg-transparent border-2 border-black text-black font-bold px-4 sm:px-5 md:px-4 lg:px-5 py-2.5 sm:py-2.5 md:py-2.5 lg:py-2.5 text-xs sm:text-sm md:text-xs lg:text-xs uppercase tracking-wide hover:bg-black hover:text-white transition-colors duration-200">
+                <Link to="/pieces" className="bg-transparent border-2 border-black text-black font-bold px-4 sm:px-5 md:px-4 lg:px-5 py-2.5 sm:py-2.5 md:py-2.5 lg:py-2.5 text-xs sm:text-sm md:text-xs lg:text-xs uppercase tracking-wide hover:bg-black hover:text-white transition-colors duration-200">
                   DISCOVER THE PIECES
                 </Link>
               </div>

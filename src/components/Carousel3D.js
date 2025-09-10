@@ -1,12 +1,17 @@
+'use client';
+
 import React, { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 const Carousel3D = () => {
+  const router = useRouter();
   const [hoverPreview, setHoverPreview] = useState(null);
   const [previewPosition, setPreviewPosition] = useState({ x: 0, y: 0 });
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isScrolling, setIsScrolling] = useState(false);
   const carouselRef = useRef(null);
 
-  // Datos de las imágenes del carrusel con colores de preview
+  // Datos de las imágenes del carrusel del home (sin textos de tienda)
   const baseSlides = [
     { id: 1, src: '/assets/img/deathandlife-paint.webp', title: 'Death and Life', color: '#FF0000', preview: '/assets/img/klimt-protest.jpg', location: 'Leopold Museum, Vienna, 2022' },
     { id: 2, src: '/assets/img/gioconda-paint.webp', title: 'Gioconda', color: '#00FF00', preview: '/assets/img/gioconda-protest.jpg', location: 'Louvre Museum, Paris, 2024' },
@@ -48,49 +53,41 @@ const Carousel3D = () => {
     const gapPx = windowWidth < 400 ? 0 : windowWidth < 768 ? 4 : windowWidth < 1024 ? 12 : windowWidth < 1200 ? 7 : windowWidth < 1366 ? 15 : windowWidth < 1440 ? 0 : 8; // Móviles pequeños: sin gap, Móviles medianos: 4px, Tablets pequeñas: 12px, Tablets medianas: 7px, iPad Pro vertical: 15px, MacBook Air: 0px, Desktop: 8px
     const unitWidth = slideWidth + gapPx;
     
-    // Debug: mostrar valores calculados
-    console.log('Carousel3D Debug:', {
-      windowWidth,
-      slideWidth,
-      gapPx,
-      unitWidth,
-      BASE
-    });
+
     
     let baseWidth = unitWidth * BASE;
     let offsetPx = -baseWidth * MID;
     let velocity = 0;
     
     // Constantes del auto-scroll
-    const AUTO_VX = 0.5; // Velocidad reducida para desktop
+    const AUTO_VX = -0.8; // Velocidad aumentada para auto-scroll más rápido
     
     // Estados del sistema
     let autoPaused = false;
-    let mobileTouched = false; // Flag para saber si se ha tocado en mobile
+    
+    // Flag para saber si se ha tocado en mobile
+    let mobileTouched = false;
 
+    // Función de transformación simple como Weapons
     const applyTransform = () => {
       if (carouselRef.current) {
-        // En mobile: añadir transición suave para el movimiento de imagen en imagen
-        if (windowWidth < 768) {
-          carouselRef.current.style.transition = 'transform 0.3s ease-out';
-        } else {
-          // En desktop: sin transición para mantener el scroll fluido
-          carouselRef.current.style.transition = 'none';
-        }
-        
         carouselRef.current.style.transform = `translate3d(${Math.round(offsetPx)}px, 0, 0)`;
       }
     };
     
-    // Animation loop - EXACTA LÓGICA DE STORE
+
+    
+    // Animation loop - LÓGICA DE WEAPONS
     const animate = () => {
       // En mobile, si se ha tocado, no hacer auto-scroll
       const shouldAutoScroll = window.innerWidth >= 768 || !mobileTouched;
       const autoV = (autoPaused || !shouldAutoScroll) ? 0 : AUTO_VX;
       
-      offsetPx += (velocity * 0.3) + autoV;
+      // VELOCITY MULTIPLIER BALANCEADO: Multiplicador medio para buen control y movimiento
+      offsetPx += (velocity * 0.3) + autoV; // Aumentado de 0.2 a 0.3 para más movimiento
       
-      velocity *= 0.94;
+      // VELOCITY DECAY MÁS RÁPIDO: Decay más rápido para frenar más rápido
+      velocity *= 0.88; // Cambiado de 0.96 a 0.88 para decay más rápido
       
       offsetPx = ((offsetPx % baseWidth) + baseWidth) % baseWidth - baseWidth * MID;
       
@@ -101,128 +98,89 @@ const Carousel3D = () => {
     // Start animation loop
     animate();
     
-    // Wheel scroll control - EXACTA LÓGICA DE STORE
+    // Wheel scroll control - LÓGICA DE WEAPONS
     let wheelLock = false;
     const onWheel = (e) => {
       e.preventDefault();
       e.stopPropagation();
-      // Wheel scroll control
       
-      setTimeout(() => {
-        // Wheel scroll control
-      }, 40);
+      // En mobile: si se hace scroll con wheel, también pausar auto-scroll permanentemente
+      if (window.innerWidth < 768) {
+        mobileTouched = true;
+      }
+      
+      // En desktop: desactivar preview cuando se hace scroll
+      if (window.innerWidth >= 768) {
+        setHoverPreview(null);
+      }
       
       if (wheelLock) return;
       const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      if (Math.abs(delta) < 20) return;
-      wheelLock = true;
       
-      if (delta > 0) {
-        velocity -= unitWidth / 6;
-      } else {
-        velocity += unitWidth / 6;
+      // WHEEL EXTREMADAMENTE RESPONSIVO: Sensibilidad máxima para movimiento súper amplio
+      if (Math.abs(delta) > 8) { // Mantenemos el umbral para evitar movimientos accidentales
+        velocity -= delta * 0.9; // Aumentado de 0.7 a 0.9 para movimiento súper amplio
+        wheelLock = true;
+        setTimeout(() => { wheelLock = false; }, 60); // Mantenemos el control
       }
-      velocity = Math.max(-unitWidth, Math.min(unitWidth, velocity));
-      
-      setTimeout(() => { wheelLock = false; }, 90);
     };
     
-    // Touch/swipe control - EXACTA LÓGICA DE STORE
+    // Touch events para mobile - LÓGICA DE WEAPONS
     let touchStartX = 0;
-    let touchStartY = 0;
-    let touchEndX = 0;
-    let touchEndY = 0;
-    // Touch/swipe control
+    let touchStartTime = 0;
+    let isDragging = false;
     
     const onTouchStart = (e) => {
-      // Solo en mobile (pantallas pequeñas)
-      if (window.innerWidth < 768) {
-        e.preventDefault(); // Bloquear scroll vertical completamente
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-        mobileTouched = true; // Marcar que se ha tocado en mobile
-        // Touch started
-        autoPaused = true; // Pausar auto-scroll inmediatamente
-      }
+      mobileTouched = true;
+      touchStartX = e.touches[0].clientX;
+      touchStartTime = Date.now();
+      isDragging = false;
+      autoPaused = true;
+      
+      // En mobile: una vez que se toca, el auto-scroll se pausa permanentemente
+      // No se reactiva automáticamente
     };
     
     const onTouchMove = (e) => {
-      if (window.innerWidth < 768) {
-        touchEndX = e.touches[0].clientX;
-        touchEndY = e.touches[0].clientY;
+      if (!isDragging) {
+        isDragging = true;
+      }
+      
+      const touchX = e.touches[0].clientX;
+      const deltaX = touchStartX - touchX;
+      
+      // TOUCH MÁS RESPONSIVO EN MOBILE: Sensibilidad aumentada para más movimiento
+      if (Math.abs(deltaX) > 5) { // Mantenemos el umbral para evitar movimientos accidentales
+        velocity -= deltaX * 0.8; // Aumentado de 0.5 a 0.8 para mucho más movimiento en mobile
+        touchStartX = touchX;
       }
     };
     
     const onTouchEnd = (e) => {
-      if (window.innerWidth < 768) {
-        const deltaX = touchStartX - touchEndX;
-        const deltaY = touchStartY - touchEndY;
-        
-        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 30) {
-          // Movimiento de imagen en imagen
-          if (deltaX > 0) {
-            // Swipe izquierda - siguiente imagen
-            offsetPx -= unitWidth;
-          } else {
-            // Swipe derecha - imagen anterior
-            offsetPx += unitWidth;
-          }
-          
-          // En mobile: hacer snap a la posición exacta para centrado perfecto
-          const centerOffset = -baseWidth * MID;
-          const currentCenter = offsetPx - centerOffset;
-          const imageIndex = Math.round(currentCenter / unitWidth);
-          const targetOffset = centerOffset + (imageIndex * unitWidth);
-          
-          // Ajustar a la posición exacta de la imagen
-          offsetPx = targetOffset;
-          
-          // Aplicar la transformación con animación suave
-          applyTransform();
-        }
-      }
-    };
-
-    // Control con flechas del teclado
-    const onKeyDown = (e) => {
-      // Solo procesar si no estamos en un input o textarea
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      const touchEndTime = Date.now();
+      const touchDuration = touchEndTime - touchStartTime;
       
-      switch (e.key) {
-        case 'ArrowLeft':
-          e.preventDefault();
-          // Mover una imagen a la izquierda
-          offsetPx -= unitWidth;
-          break;
-        case 'ArrowRight':
-          e.preventDefault();
-          // Mover una imagen a la derecha
-          offsetPx += unitWidth;
-          break;
-        default:
-          return; // No procesar otras teclas
+      // Si fue un toque rápido, no hacer scroll
+      if (touchDuration < 200 && !isDragging) {
+        // Aquí podrías agregar lógica para abrir el producto
+        return;
       }
       
-      // Normalizar posición inmediatamente
-      offsetPx = ((offsetPx % baseWidth) + baseWidth) % baseWidth - baseWidth * MID;
-      applyTransform();
+      isDragging = false;
     };
 
-    // Agregar event listeners
-    const section = carouselRef.current?.closest('section');
+
+
+    // Event listeners - LÓGICA DE WEAPONS
+    const section = document.querySelector('section');
     if (section) {
       section.addEventListener('wheel', onWheel, { passive: false });
       section.addEventListener('touchstart', onTouchStart, { passive: false });
-      section.addEventListener('touchmove', onTouchMove, { passive: true });
-      section.addEventListener('touchend', onTouchEnd, { passive: true });
-      
-      // Pause auto-scroll while hovering the carousel area
+      section.addEventListener('touchmove', onTouchMove, { passive: false });
+      section.addEventListener('touchend', onTouchEnd, { passive: false });
       section.addEventListener('mouseenter', () => { autoPaused = true; });
       section.addEventListener('mouseleave', () => { autoPaused = false; });
     }
-    
-    // Agregar event listener para teclado (global)
-    document.addEventListener('keydown', onKeyDown);
     
     // Cleanup
     return () => {
@@ -234,7 +192,6 @@ const Carousel3D = () => {
         section.removeEventListener('mouseenter', () => { autoPaused = true; });
         section.removeEventListener('mouseleave', () => { autoPaused = false; });
       }
-      document.removeEventListener('keydown', onKeyDown);
     };
   }, [baseSlides.length, windowWidth]);
 
@@ -269,6 +226,13 @@ const Carousel3D = () => {
   const handleMouseEnter = (e, slide) => {
     if (!isTouchDevice()) {
       positionPreview(e, slide);
+      // Pausar auto-scroll cuando se muestra el preview
+      if (carouselRef.current) {
+        const section = carouselRef.current.closest('section');
+        if (section) {
+          section.dispatchEvent(new Event('mouseenter'));
+        }
+      }
     }
   };
 
@@ -281,8 +245,38 @@ const Carousel3D = () => {
   const handleMouseLeave = () => {
     if (!isTouchDevice()) {
       setHoverPreview(null);
+      // Reanudar auto-scroll cuando se oculta el preview
+      if (carouselRef.current) {
+        const section = carouselRef.current.closest('section');
+        if (section) {
+          section.dispatchEvent(new Event('mouseleave'));
+        }
+      }
     }
   };
+
+  // Ocultar preview cuando empiece a scrollear
+  useEffect(() => {
+    if (isScrolling) {
+      setHoverPreview(null);
+    }
+  }, [isScrolling]);
+
+  // Mostrar preview automáticamente cuando pare de scrollear
+  useEffect(() => {
+    if (!isScrolling && hoverPreview) {
+      // Pequeño delay para evitar parpadeo
+      const timer = setTimeout(() => {
+        if (!isScrolling) {
+          // Forzar la actualización del preview en la posición actual del ratón
+          if (hoverPreview && previewPosition) {
+            setHoverPreview({...hoverPreview});
+          }
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isScrolling, hoverPreview, previewPosition]);
 
   return (
     <section 
@@ -297,13 +291,7 @@ const Carousel3D = () => {
           className="relative h-full flex items-center gap-2 px-6"
                     style={{
             width: `${slides.length * 350}px`,
-            transform: 'translate3d(0, 0, 0)',
-            // Optimizaciones específicas para Chrome
-            ...(navigator.userAgent.includes('Chrome') && {
-              willChange: 'transform',
-              backfaceVisibility: 'hidden',
-              perspective: '1000px'
-            })
+            transform: 'translate3d(0, 0, 0)'
           }}
         >
           {/* All slides visible horizontally */}
@@ -319,19 +307,20 @@ const Carousel3D = () => {
               onMouseMove={(e) => handleMouseMove(e, slide)}
               onMouseLeave={handleMouseLeave}
               onClick={() => {
-                console.log('Click en slide ID:', slide.id, 'Título:', slide.title);
-                if (slide.id.toString().startsWith('1')) {
-                  console.log('Redirigiendo a /deathandlife');
-                  window.location.href = '/deathandlife';
-                } else if (slide.id.toString().startsWith('3')) {
-                  console.log('Redirigiendo a /sunflowers');
-                  window.location.href = '/sunflowers';
-                } else if (slide.id.toString().startsWith('4')) {
-                  console.log('Redirigiendo a /lesmeules');
-                  window.location.href = '/lesmeules';
-                } else {
-                  console.log('Redirigiendo a /gioconda');
-                  window.location.href = '/gioconda';
+                // Extraer el ID base del slide (sin el sufijo de copia)
+                const baseId = slide.id.toString().split('-')[0];
+                
+                // Mapear IDs a rutas
+                const routeMap = {
+                  '1': '/deathandlife',
+                  '2': '/gioconda', 
+                  '3': '/sunflowers',
+                  '4': '/lesmeules'
+                };
+                
+                const route = routeMap[baseId];
+                if (route) {
+                  router.push(route);
                 }
               }}
             >
@@ -362,7 +351,7 @@ const Carousel3D = () => {
           {hoverPreview.preview && (
             <div className="relative w-full h-full">
               {/* Imagen principal con bordes redondeados */}
-              <div className="w-full h-full bg-white rounded-2xl shadow-2xl overflow-hidden">
+              <div className="w-full h-full bg-white rounded-lg shadow-2xl overflow-hidden">
                 <img 
                   src={hoverPreview.preview}
                   alt="Preview"
@@ -372,16 +361,13 @@ const Carousel3D = () => {
               </div>
               
               {/* Overlay elegante con información */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 rounded-b-2xl">
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 rounded-b-lg">
                 <div className="text-white text-center">
                   <p className="text-[10px] font-normal tracking-wide">
                     {hoverPreview.location || 'París, 2024'}
                   </p>
                 </div>
               </div>
-              
-              {/* Indicador de esquina */}
-              <div className="absolute top-3 right-3 w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
             </div>
           )}
         </div>

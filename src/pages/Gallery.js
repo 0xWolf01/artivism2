@@ -101,7 +101,7 @@ const Gallery = () => {
                 <img 
                   src={item.image} 
                   alt={item.title}
-                  className="w-full h-full object-contain max-w-[80%] max-h-[80%]"
+                  className="w-full h-full object-contain max-w-[80%] max-h-[80%] transition-transform duration-300 ease-out hover:scale-105"
                 />
               </div>
             </Link>

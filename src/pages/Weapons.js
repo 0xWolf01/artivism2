@@ -6,12 +6,12 @@ const Weapons = () => {
 
   // Datos de los productos de la tienda
   const baseSlides = [
-    { id: 1, src: '/assets/img/pure-patata.png', title: 'Fossil Fuel is Killing Us – Mashed Potatoes', artist: 'Food Art', year: '€19.99', color: '#FF0000' },
-    { id: 2, src: '/assets/img/marker.png', title: 'Stop Oil Blue Marker', artist: 'Office Art', year: '€24.99', color: '#00FF00' },
-    { id: 3, src: '/assets/img/pea-soup.png', title: 'Agricultural System is Collapsed – Pea Soup', artist: 'Food Art', year: '€29.99', color: '#0000FF' },
-    { id: 4, src: '/assets/img/tomato-soup.png', title: 'Stop Oil – Tomato Soup', artist: 'Food Art', year: '€27.99', color: '#FF6B6B' },
-    { id: 5, src: '/assets/img/petroleum.png', title: 'Stop Fossil Fuels – Fossil Fuel', artist: 'Industrial Art', year: '€32.99', color: '#2C3E50' },
-    { id: 6, src: '/assets/img/pumpkin-soup.png', title: 'No Food for the Future – Pumpkin Soup', artist: 'Food Art', year: '€25.99', color: '#E67E22' }
+    { id: 1, src: '/assets/img/mashed-potatoes.webp', title: 'Fossil Fuel is Killing Us – Mashed Potatoes', artist: 'Food Art', year: '€19.99', color: '#FF0000' },
+    { id: 2, src: '/assets/img/marker.webp', title: 'Stop Oil Blue Marker', artist: 'Office Art', year: '€24.99', color: '#00FF00' },
+    { id: 3, src: '/assets/img/pea-soup.webp', title: 'Agricultural System is Collapsed – Pea Soup', artist: 'Food Art', year: '€29.99', color: '#0000FF' },
+    { id: 4, src: '/assets/img/tomate-soup.webp', title: 'Stop Oil – Tomato Soup', artist: 'Food Art', year: '€27.99', color: '#FF6B6B' },
+    { id: 5, src: '/assets/img/petroleum.webp', title: 'Stop Fossil Fuels – Fossil Fuel', artist: 'Industrial Art', year: '€32.99', color: '#2C3E50' },
+    { id: 6, src: '/assets/img/pumkin-soup.webp', title: 'No Food for the Future – Pumpkin Soup', artist: 'Food Art', year: '€25.99', color: '#E67E22' }
   ];
 
   // Generar múltiples copias para scroll infinito
@@ -26,43 +26,50 @@ const Weapons = () => {
     });
   }
 
-  // Auto-scroll infinito
-  useEffect(() => {
-    // Forzar scroll hacia arriba
-    window.scrollTo(0, 0);
-    
-    // Bloquear scroll vertical en mobile y desktop
-    document.body.style.overflow = 'hidden';
-    
-    // Flag para saber si se ha tocado en mobile
-    let mobileTouched = false;
-    
-    // Entry animation for store items
-    const animTargets = document.querySelectorAll('figure');
-    
-    animTargets.forEach((el, i) => {
-      el.classList.add('opacity-0', 'translate-y-4');
-      const delay = Math.min(i * 100, 800); // Máximo 800ms de delay
-      setTimeout(() => {
-        el.classList.add('transition-all', 'duration-700', 'ease-out');
-        el.classList.remove('opacity-0', 'translate-y-4');
-      }, delay);
-    });
-    
-    const BASE = baseSlides.length;
-    const COPIES = 3;
-    const MID = Math.floor(COPIES / 2);
-    const slideWidth = 350;
-    const gapPx = 8;
-    const unitWidth = slideWidth + gapPx;
-    
-    let baseWidth = unitWidth * BASE;
-    let offsetPx = -baseWidth * MID;
-    let velocity = 0;
-    
-    const AUTO_VX = 1.0;
-    
-    let autoPaused = false;
+      // Auto-scroll infinito - LÓGICA EXACTA DEL HOME
+    useEffect(() => {
+      // Forzar scroll hacia arriba
+      window.scrollTo(0, 0);
+      
+      // Bloquear scroll vertical solo en desktop - permitir scroll normal en mobile
+      if (window.innerWidth >= 768) {
+        document.body.style.overflow = 'hidden';
+      }
+      
+      // Entry animation for store items
+      const animTargets = document.querySelectorAll('figure');
+      
+      animTargets.forEach((el, i) => {
+        el.classList.add('opacity-0', 'translate-y-4');
+        const delay = Math.min(i * 50, 400);
+        setTimeout(() => {
+          el.classList.add('transition-all', 'duration-500', 'ease-out');
+          el.classList.remove('opacity-0', 'translate-y-4');
+        }, delay);
+      });
+      
+      // Constantes del sistema de copias - EXACTAMENTE COMO HOME
+      const BASE = baseSlides.length;
+      const COPIES = 3;
+      const MID = Math.floor(COPIES / 2);
+      
+      // Tamaño responsive del carrusel - OPTIMIZADO PARA DISPOSITIVOS MÓVILES
+      const slideWidth = window.innerWidth < 400 ? 250 : window.innerWidth < 768 ? 300 : window.innerWidth < 1024 ? 260 : window.innerWidth < 1200 ? 330 : window.innerWidth < 1366 ? 400 : window.innerWidth < 1440 ? 272 : 350;
+      const gapPx = window.innerWidth < 400 ? 0 : window.innerWidth < 768 ? 4 : window.innerWidth < 1024 ? 12 : window.innerWidth < 1200 ? 7 : window.innerWidth < 1366 ? 15 : window.innerWidth < 1440 ? 0 : 8;
+      const unitWidth = slideWidth + gapPx;
+      
+      let baseWidth = unitWidth * BASE;
+      let offsetPx = -baseWidth * MID;
+      let velocity = 0;
+      
+      // Constantes del auto-scroll - EXACTAMENTE COMO HOME
+      const AUTO_VX = -0.8; // Velocidad aumentada para auto-scroll más rápido
+      
+      // Estados del sistema - EXACTAMENTE COMO HOME
+      let autoPaused = false;
+      
+      // Flag para saber si se ha tocado en mobile - EXACTAMENTE COMO HOME
+      let mobileTouched = false;
     
     const applyTransform = () => {
       if (carouselRef.current) {
@@ -77,13 +84,15 @@ const Weapons = () => {
       
       offsetPx += (velocity * 0.3) + autoV;
       
-      velocity *= 0.94;
+      // VELOCITY DECAY MÁS RÁPIDO: Decay más rápido para frenar más rápido
+      velocity *= 0.88; // Cambiado de 0.96 a 0.88 para decay más rápido
       
+      // LÓGICA EXACTA DEL HOME: Solo normalización básica, sin snap ni bloqueos
       offsetPx = ((offsetPx % baseWidth) + baseWidth) % baseWidth - baseWidth * MID;
       
       // Calcular qué producto está en el centro (comentado para futuras funcionalidades)
       // const centerPosition = Math.abs(offsetPx);
-      // const productIndex = Math.round(centerPosition / unitWidth) % BASE;
+      // const productIndex = Math.round(offsetPx / unitWidth) % BASE;
       
       applyTransform();
       requestAnimationFrame(animate);
@@ -104,11 +113,14 @@ const Weapons = () => {
       if (wheelLock) return;
       const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
       
-      if (Math.abs(delta) > 10) {
-        velocity -= delta * 0.3; // Valor original
+      // WHEEL EXTREMADAMENTE RESPONSIVO: Sensibilidad máxima para movimiento súper amplio - EXACTAMENTE COMO HOME
+      if (Math.abs(delta) > 8) { // Mantenemos el umbral para evitar movimientos accidentales
+        velocity -= delta * 0.9; // Aumentado de 0.7 a 0.9 para movimiento súper amplio
         wheelLock = true;
-        setTimeout(() => { wheelLock = false; }, 50);
+        setTimeout(() => { wheelLock = false; }, 60); // Mantenemos el control
       }
+      
+      // Ya no es necesario el snap, el bloqueo en animate() se encarga
     };
     
     // Touch events para mobile
@@ -135,8 +147,9 @@ const Weapons = () => {
       const touchX = e.touches[0].clientX;
       const deltaX = touchStartX - touchX;
       
-      if (Math.abs(deltaX) > 7) {
-        velocity -= deltaX * 0.6; // Valor original mejorado ligeramente
+      // TOUCH MÁS RESPONSIVO EN MOBILE: Sensibilidad aumentada para más movimiento - EXACTAMENTE COMO HOME
+      if (Math.abs(deltaX) > 5) { // Mantenemos el umbral para evitar movimientos accidentales
+        velocity -= deltaX * 0.8; // Aumentado de 0.5 a 0.8 para mucho más movimiento en mobile
         touchStartX = touchX;
       }
     };
@@ -150,6 +163,8 @@ const Weapons = () => {
         // Aquí podrías agregar lógica para abrir el producto
         return;
       }
+      
+      // Ya no es necesario el snap, el bloqueo en animate() se encarga
       
       isDragging = false;
     };
@@ -165,9 +180,9 @@ const Weapons = () => {
       section.addEventListener('mouseleave', () => { autoPaused = false; });
     }
     
-    // Bloquear scroll vertical globalmente
+    // Bloquear scroll vertical solo en desktop - permitir scroll normal en mobile
     const preventVerticalScroll = (e) => {
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      if (window.innerWidth >= 768 && Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
         e.preventDefault();
         e.stopPropagation();
       }
@@ -175,14 +190,16 @@ const Weapons = () => {
     
     document.addEventListener('wheel', preventVerticalScroll, { passive: false });
     document.addEventListener('touchmove', (e) => {
-      if (e.touches.length === 1) {
+      if (window.innerWidth >= 768 && e.touches.length === 1) {
         e.preventDefault();
       }
     }, { passive: false });
     
-    // Cleanup: restaurar scroll al desmontar el componente
+    // Cleanup: restaurar scroll al desmontar el componente solo si estaba bloqueado
     return () => {
-      document.body.style.overflow = 'auto';
+      if (window.innerWidth >= 768) {
+        document.body.style.overflow = 'auto';
+      }
       
       if (section) {
         section.removeEventListener('wheel', onWheel);
@@ -204,33 +221,29 @@ const Weapons = () => {
   }, [baseSlides.length]);
 
   return (
-    <main className="mt-14 pb-[calc(3.5rem+env(safe-area-inset-bottom))] bg-white w-full" style={{ paddingRight: '0', marginRight: '0' }}>
+    <main className="mt-14 pb-[calc(3.5rem+env(safe-area-inset-bottom))] bg-white w-full">
       <h1 className="sr-only">Weapons</h1>
 
-      {/* Contenedor principal centrado verticalmente */}
-      <div className="flex flex-col items-center justify-center h-[calc(100vh-3.5rem-7rem)] w-full">
+      {/* Contenedor principal - responsive para mobile y desktop */}
+      <div className="flex flex-col items-center w-full md:h-[calc(100vh-3.5rem-7rem)] md:justify-center">
         {/* Choose Your Weapon Header */}
-        <div className="w-full text-center mb-6 px-4 md:px-10 xl:px-20 mt-16 md:mt-0">
+        <div className="w-full text-center mb-6 px-4 md:px-10 xl:px-20 mt-8 md:mt-8 lg:mt-12 xl:mt-16">
           <h2 className="text-xl md:text-2xl font-bold text-black" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
             Choose your weapon
           </h2>
         </div>
 
-        {/* 3D Carousel Section - edge to edge */}
-        <div className="w-full">
-          <section className="relative w-full overflow-hidden">
+        {/* Carrusel para Desktop, Grid para Mobile */}
+        <div className="w-full flex flex-col items-center justify-center">
+          {/* Carrusel 3D - Solo visible en Desktop */}
+          <section className="relative w-full overflow-hidden hidden md:block">
             <div className="relative w-full h-[60vh] md:h-[65vh] xl:h-[70vh] overflow-hidden">
               <div 
                 ref={carouselRef}
                 className="relative h-full flex items-center gap-2"
                 style={{
                   width: `${slides.length * 350}px`,
-                  minWidth: '100vw',
-                  margin: '0',
-                  padding: '0',
-                  left: '0',
-                  right: '0',
-                  transform: 'translateX(0)'
+                  transform: 'translate3d(0, 0, 0)'
                 }}
               >
                 {slides.map((slide, index) => (
@@ -238,14 +251,14 @@ const Weapons = () => {
                     key={slide.id}
                     className="flex-shrink-0 flex flex-col items-center justify-center transition-all duration-300 ease-in-out cursor-pointer"
                     style={{
-                      width: '350px',
+                      width: '340px',
                       height: '100%'
                     }}
                     // onClick removed - no redirection on figure click
                   >
                     <div className="bg-[#f2f2f2] p-4 w-full h-full flex flex-col items-center justify-between">
                       {/* Imagen - altura fija */}
-                      <div className="flex-shrink-0 w-full h-[60%] flex items-center justify-center">
+                      <div className="flex-shrink-0 w-full h-[50%] flex items-center justify-center pt-4">
                         <img
                           src={slide.src}
                           alt={slide.title}
@@ -255,9 +268,9 @@ const Weapons = () => {
                       </div>
                       
                       {/* Contenido de texto - altura fija */}
-                      <div className="flex-shrink-0 w-full h-[40%] flex flex-col justify-between">
-                        {/* Título */}
-                        <div className="text-center mb-2">
+                      <div className="flex-shrink-0 w-full h-[50%] flex flex-col justify-start pt-12 pb-16">
+                        {/* Título - altura fija */}
+                        <div className="text-center mb-0 h-[25%] flex items-center justify-center">
                           <h3 className="text-[0.9rem] font-bold text-gray-800 transition-all duration-300" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
                             {slide.title.includes('–') ? (
                               <>
@@ -277,8 +290,8 @@ const Weapons = () => {
                           </h3>
                         </div>
                         
-                        {/* Descripción para todos los productos - altura fija */}
-                        <div className="text-center mb-2 min-h-[2.5rem] flex items-center justify-center">
+                        {/* Descripción - altura fija */}
+                        <div className="text-center mb-3 h-[50%] flex items-center justify-center px-2">
                           {slide.title.includes('Pea Soup') ? (
                             <p className="text-[0.6rem] text-gray-500 leading-tight px-2 opacity-80 max-w-[250px] mx-auto" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
                               A light-green vegetable solution with broad coverage and lasting effect. Can be combined with other products for greater impact.
@@ -311,13 +324,13 @@ const Weapons = () => {
                         </div>
                         
                         {/* Precio y botón - altura fija */}
-                        <div className="text-center">
+                        <div className="text-center h-[25%] flex flex-col justify-center items-center">
                           <p className="text-[0.75rem] text-gray-600 mb-3 transition-all duration-300" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
                             {slide.year}
                           </p>
                           <button 
                             onClick={() => window.open('https://shop.capitalismtheweb.com/', '_blank')}
-                            className="inline-block bg-black text-white px-4 py-2 font-semibold transition-all duration-300 text-[0.75rem] hover:bg-gray-800 hover:scale-105 cursor-pointer" 
+                            className="bg-transparent border-2 border-black text-black px-3 py-1.5 font-semibold transition-all duration-300 text-[0.75rem] hover:bg-black hover:text-white cursor-pointer" 
                             style={{ fontFamily: 'Moma Sans, sans-serif' }}
                           >
                             BUY
@@ -330,6 +343,97 @@ const Weapons = () => {
               </div>
             </div>
           </section>
+
+          {/* Grid de Items - Solo visible en Mobile */}
+          <div 
+            className="md:hidden space-y-6 pb-8 w-full max-w-sm px-4"
+            style={{ margin: '0 auto' }}
+          >
+            {baseSlides.map((slide, index) => (
+              <div
+                key={slide.id}
+                className="bg-[#f2f2f2] p-4 pb-8 flex flex-col items-center h-[80vh] w-full"
+              >
+                {/* Imagen */}
+                <div className="w-full h-[40%] flex items-center justify-center mb-6 pt-4">
+                  <img
+                    src={slide.src}
+                    alt={slide.title}
+                    className="max-w-full max-h-full object-contain"
+                    draggable={false}
+                  />
+                </div>
+                
+                {/* Título */}
+                <div className="text-center mb-4 h-[20%] flex items-center justify-center">
+                  <h3 className="text-lg font-bold text-gray-800" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
+                    {slide.title.includes('–') ? (
+                      <>
+                        <span className="text-lg font-bold">{slide.title.split('–')[0].trim()}</span>
+                        <br />
+                        <span className="text-sm font-normal">{slide.title.split('–')[1].trim()}</span>
+                      </>
+                    ) : slide.title === 'Stop Oil Blue Marker' ? (
+                      <>
+                        <span className="text-lg font-bold">Stop Oil</span>
+                        <br />
+                        <span className="text-sm font-normal">Blue Marker</span>
+                      </>
+                    ) : (
+                      slide.title
+                    )}
+                  </h3>
+                </div>
+                
+                {/* Descripción */}
+                <div className="text-center mb-4 px-2 h-[50%] flex items-center justify-center pt-4">
+                  {slide.title.includes('Pea Soup') ? (
+                    <p className="text-xs text-gray-500 leading-relaxed" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
+                      A light-green vegetable solution with broad coverage and lasting effect. Can be combined with other products for greater impact.
+                    </p>
+                  ) : slide.title.includes('Mashed Potatoes') ? (
+                    <p className="text-xs text-gray-500 leading-relaxed" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
+                      Opaque powder of variable density to mix with water and throw at an artwork. Perfect for full-coverage actions.
+                    </p>
+                  ) : slide.title.includes('Blue Marker') ? (
+                    <p className="text-xs text-gray-500 leading-relaxed" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
+                      High-quality permanent blue ink for targeting any artwork, regardless of medium. Easy to carry, easy to use.
+                    </p>
+                  ) : slide.title.includes('Tomato Soup') ? (
+                    <p className="text-xs text-gray-500 leading-relaxed" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
+                      The classic protest weapon. Iconic, eye-catching, bright, and ultra-processed.
+                    </p>
+                  ) : slide.title.includes('Fossil Fuel') ? (
+                    <p className="text-xs text-gray-500 leading-relaxed" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
+                      Dark, viscous liquid that's impossible to ignore. Equal parts ironic and provocative.
+                    </p>
+                  ) : slide.title.includes('Pumpkin Soup') ? (
+                    <p className="text-xs text-gray-500 leading-relaxed" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
+                      Ultra-processed, long-lasting soup with strong coverage and vivid orange color. The perfect original alternative to tomato soup.
+                    </p>
+                  ) : (
+                    <p className="text-xs text-gray-500 leading-relaxed" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
+                      A versatile tool designed for maximum impact and visibility. Perfect for any artistic expression or protest action.
+                    </p>
+                  )}
+                </div>
+                
+                {/* Precio y botón */}
+                <div className="text-center h-[25%] flex flex-col justify-center items-center pb-6">
+                  <p className="text-base text-gray-600 mb-3" style={{ fontFamily: 'Moma Sans, sans-serif' }}>
+                    {slide.year}
+                  </p>
+                  <button 
+                    onClick={() => window.open('https://shop.capitalismtheweb.com/', '_blank')}
+                    className="bg-transparent border-2 border-black text-black px-4 py-2 font-semibold transition-all duration-300 hover:bg-black hover:text-white cursor-pointer" 
+                    style={{ fontFamily: 'Moma Sans, sans-serif' }}
+                  >
+                    BUY
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </main>
